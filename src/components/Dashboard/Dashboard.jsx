@@ -57,6 +57,9 @@ const Dashboard = () => {
                 </div>
             </aside>
             <div className="w-[75%]">
+                <div>
+                <h1 className='mt-5 p-5 bg-slate-400 text-center font-bold text-3xl'>Welcome to task management application</h1>
+                </div>
             <Outlet></Outlet>
             </div>
         </div>

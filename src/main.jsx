@@ -9,6 +9,7 @@ import Home from './components/Home/Home';
 import Layout from './components/Layout/Layout';
 import Dashboard from './components/Dashboard/Dashboard';
 import DashHome from './components/Dashboard/DashHome';
+import CreateTask from './components/Dashboard/CreateTask';
 
 const router = createBrowserRouter([
   {
@@ -29,6 +30,10 @@ const router = createBrowserRouter([
     {
       path: "home",
       element: <DashHome></DashHome>
+    },
+    {
+      path: "addNewTask",
+      element: <CreateTask></CreateTask>
     }
   ]
     
