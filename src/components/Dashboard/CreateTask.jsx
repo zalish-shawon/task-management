@@ -13,6 +13,7 @@ const CreateTask = () => {
 
     useEffect(() => {
         setValue('email', user?.email);
+        setValue('status', 'todo');
       }, [user, setValue]);
 
     const onSubmit = (data) => {
