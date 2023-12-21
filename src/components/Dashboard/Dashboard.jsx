@@ -56,7 +56,7 @@ const Dashboard = () => {
                     </nav>
                 </div>
             </aside>
-            <div>
+            <div className="w-[75%]">
             <Outlet></Outlet>
             </div>
         </div>
