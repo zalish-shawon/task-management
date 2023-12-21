@@ -1,18 +1,38 @@
 /* eslint-disable react/no-unknown-property */
-import React from 'react';
+import axios from 'axios';
+import React, { useContext, useEffect } from 'react';
 import { useForm } from "react-hook-form"
+import { AuthContext } from '../../provider/AuthProvider';
+import Swal from 'sweetalert2';
+import { useNavigate } from 'react-router-dom';
 
 const CreateTask = () => {
+    const {user} = useContext(AuthContext);
+    const { register, handleSubmit, setValue } = useForm()
+    const navigate = useNavigate();
 
-    const { register, handleSubmit } = useForm()
+    useEffect(() => {
+        setValue('email', user?.email);
+      }, [user, setValue]);
+
     const onSubmit = (data) => {
-        console.log(data)
+        try {
+            axios.post(`http://localhost:5000/tasks`, data)
+            .then(res => {
+                if(res.data.insertedId) {
+                    Swal.fire(
+                        'Welcome!',
+                        'Task has been added!',
+                        'success'
+                      )
+                }
+                // console.log(res.data);
+                navigate("/dashboard/home")
+            })
 
-        
-
-
-
-
+        } catch (error) {
+            console.log(error.message);
+        }
     }
 
     return (

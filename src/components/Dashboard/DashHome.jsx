@@ -1,10 +1,20 @@
+import { useQuery } from '@tanstack/react-query';
+import axios, { all } from 'axios';
 import React from 'react';
 import { Link } from 'react-router-dom';
 
 const DashHome = () => {
+
+    const {data: allTasks = []} = useQuery({
+        queryKey: ['allTasks'],
+        queryFn: async () => {
+           const res = await axios.get('http://localhost:5000/tasks')
+           return res.data;
+        }
+    })
+
     return (
-        <div>
-            
+        <div> 
             <div>
             <Link to={"/dashboard/addNewTask"}>
             <button className="btn btn-primary mt-2">Add new task</button>
@@ -16,9 +26,11 @@ const DashHome = () => {
                     <div>
                     <h1 className='text-2xl font-semibold p-3 bg-slate-400 text-center'>To Do</h1>
                     </div>
-                    <div className='bg-slate-200'>
-                        <p className='text-xl font-semibold mt-2 p-3'>1. New task added</p>
-                    </div>
+                    {
+                        allTasks.map(task => <div key={task._id} className='bg-slate-200'>
+                        <p className='text-xl font-semibold mt-2 p-3'>{task.name}</p>
+                    </div>)
+                    }
                    
                 </div>
                 {/* second column */}
@@ -27,7 +39,7 @@ const DashHome = () => {
                     <h1 className='text-2xl font-semibold p-3 bg-slate-400 text-center'>Ongoing</h1>
                     </div>
                     <div className='bg-slate-200'>
-                        <p className='text-xl font-semibold mt-2 p-3'>1. New task added</p>
+                       
                     </div>
                    
                    
@@ -38,7 +50,7 @@ const DashHome = () => {
                     <h1 className='text-2xl font-semibold p-3 bg-slate-400 text-center'>Completed</h1>
                     </div>
                     <div className='bg-slate-200'>
-                        <p className='text-xl font-semibold mt-2 p-3'>1. New task added</p>
+                       
                     </div>
                    
                 </div>

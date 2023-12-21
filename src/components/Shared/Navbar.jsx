@@ -1,8 +1,20 @@
 /* eslint-disable react/no-unknown-property */
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { AuthContext } from '../../provider/AuthProvider';
 
 const Navbar = () => {
     const [navbar, setNavbar] = useState(false);
+    const {user, logOut} = useContext(AuthContext);
+
+    const handleLogout = () => {
+        logOut()
+        .then(res => console.log(res.user))
+        .catch(error => console.log(error.message))
+      }
+    
+
+
     return (
         <div>
              <nav className="w-full bg-white shadow">
@@ -58,7 +70,9 @@ const Navbar = () => {
                     >
                         <ul className="items-center justify-center space-y-8 md:flex md:space-x-6 md:space-y-0">
                             <li className="text-gray-600 hover:text-blue-600">
-                                <a href="javascript:void(0)">Home</a>
+                                <Link to={"/"}>
+                                <a href="">Home</a>
+                                </Link>
                             </li>
                             <li className="text-gray-600 hover:text-blue-600">
                                 <a href="javascript:void(0)">Blog</a>
@@ -66,9 +80,20 @@ const Navbar = () => {
                             <li className="text-gray-600 hover:text-blue-600">
                                 <a href="javascript:void(0)">About US</a>
                             </li>
-                            <li className="text-gray-600 hover:text-blue-600">
-                                <a href="javascript:void(0)">Contact US</a>
+                            {
+                                user ? 
+                                <li className="text-gray-600 hover:text-blue-600">
+                                
+                                <button onClick={handleLogout} className="btn btn-primary">Logout</button>
+                                
                             </li>
+                            :
+                            <li className="text-gray-600 hover:text-blue-600">
+                                <Link to={"/login"}>
+                                <button className="btn btn-primary">Login</button>
+                                </Link>
+                            </li>
+                            }
                         </ul>
                     </div>
                 </div>
