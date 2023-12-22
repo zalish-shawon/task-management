@@ -18,7 +18,7 @@ const CreateTask = () => {
 
     const onSubmit = (data) => {
         try {
-            axios.post(`http://localhost:5000/tasks`, data)
+            axios.post(`https://task-management-server-virid-six.vercel.app/tasks`, data)
             .then(res => {
                 if(res.data.insertedId) {
                     Swal.fire(

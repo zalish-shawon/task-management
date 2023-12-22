@@ -80,7 +80,9 @@ const Navbar = () => {
                                 </Link>
                             </li>
                             <li className="text-gray-600 hover:text-blue-600">
-                                <a href="javascript:void(0)">About US</a>
+                                <Link to={"/about"}>
+                                <a href="">About US</a>
+                                </Link>
                             </li>
                             {
                                 user ? 

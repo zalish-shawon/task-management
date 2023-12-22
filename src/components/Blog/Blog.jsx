@@ -30,8 +30,7 @@ const Blog = () => {
                                         </h1>
 
                                         <p class="mt-2 text-gray-500 dark:text-gray-400">
-                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam est asperiores vel, ab animi
-                                            recusandae nulla veritatis id tempore sapiente
+                                        Does your user know how to exit out of screens? Can they follow your intended user journey and buy something from the site you’ve designed? By running a usability test, you’ll be able to see how users will interact with your design once it’s live
                                         </p>
 
                                         <div class="flex items-center justify-between mt-4">
@@ -59,8 +58,7 @@ const Blog = () => {
                                             All the features you want to know</h1>
 
                                         <p class="mt-2 text-gray-500 dark:text-gray-400">
-                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam est asperiores vel, ab animi
-                                            recusandae nulla veritatis id tempore sapiente
+                                        Does your user know how to exit out of screens? Can they follow your intended user journey and buy something from the site you’ve designed? By running a usability test, you’ll be able to see how users will interact with your design once it’s live
                                         </p>
 
                                         <div class="flex items-center justify-between mt-4">
@@ -89,8 +87,7 @@ const Blog = () => {
                                         </h1>
 
                                         <p class="mt-2 text-gray-500 dark:text-gray-400">
-                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam est asperiores vel, ab animi
-                                            recusandae nulla veritatis id tempore sapiente
+                                        Does your user know how to exit out of screens? Can they follow your intended user journey and buy something from the site you’ve designed? By running a usability test, you’ll be able to see how users will interact with your design once it’s live
                                         </p>
 
                                         <div class="flex items-center justify-between mt-4">

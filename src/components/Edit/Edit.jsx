@@ -15,7 +15,7 @@ const Edit = () => {
 
     const onSubmit = (data) => {
         try {
-            axios.put(`http://localhost:5000/tasks/${_id}`, data)
+            axios.put(`https://task-management-server-virid-six.vercel.app/tasks/${_id}`, data)
             .then(res => {
                 if(res.data.modifiedCount > 0) {
                     Swal.fire(

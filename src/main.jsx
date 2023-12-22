@@ -20,6 +20,7 @@ import {
 import Edit from './components/Edit/Edit';
 import PrivateRoutes from './components/PrivateRoutes';
 import Blog from './components/Blog/Blog';
+import About from './components/About/About';
 
 const queryClient = new QueryClient()
 const router = createBrowserRouter([
@@ -43,6 +44,10 @@ const router = createBrowserRouter([
       {
         path: "/blog",
         element: <Blog></Blog>
+      },
+      {
+        path: "/about",
+        element: <About></About>
       }
       
     ],
@@ -62,7 +67,7 @@ const router = createBrowserRouter([
     {
       path: "editTask/:id",
       element: <Edit></Edit>,
-      loader: ({params}) => fetch(`http://localhost:5000/tasks/${params.id}`)
+      loader: ({params}) => fetch(`https://task-management-server-virid-six.vercel.app/tasks/${params.id}`)
     }
 
   ]

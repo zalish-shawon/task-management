@@ -29,7 +29,7 @@ const Task = ({ task, onTaskMove }) => {
       }).then((result) => {
         if (result.isConfirmed) {
 
-            axios.delete(`http://localhost:5000/tasks/${_id}`)
+            axios.delete(`https://task-management-server-virid-six.vercel.app/tasks/${_id}`)
             .then(res => res.json())
             .then(data => {
                 console.log(data);
@@ -50,7 +50,10 @@ const Task = ({ task, onTaskMove }) => {
 
   return (
     <div ref={drag} className='bg-slate-200 flex justify-between items-center mt-1'>
-      <p className='text-lg font-semibold mt-2 p-3'>{task.name}</p>
+      <div>
+      <p className='text-lg font-semibold mt-2 ml-3'>{task.name}</p>
+      <p className='text-red-700 font-semibold ml-3'>Deadline: {task.date}</p>
+      </div>
       <div className='mt-1'>
         <Link to={`/dashboard/editTask/${task._id}`}><button className='px-2 py-1 rounded-lg bg-blue-400'>edit</button></Link>
         <button onClick={()=> handleDeleteItem(task._id)} className='px-2 py-1 rounded-lg bg-blue-400 ml-2'>Delete</button>
@@ -66,7 +69,7 @@ const Column = ({ title, tasks, status, onTaskMove }) => {
   });
 
   return (
-    <div className='w-1/3 h-[300px] bg-slate-100 mt-5' ref={drop}>
+    <div className='w-[90%] mx-auto lg:w-1/3 h-[300px] bg-slate-100 mt-5' ref={drop}>
       <div>
         <h1 className='text-2xl font-semibold p-3 bg-slate-400 text-center'>{title}
         </h1>
@@ -86,7 +89,7 @@ const DashHome = () => {
   const { data: allTasks = [], refetch } = useQuery({
     queryKey: ['allTasks'],
     queryFn: async () => {
-      const res = await axios.get('http://localhost:5000/tasks');
+      const res = await axios.get('https://task-management-server-virid-six.vercel.app/tasks');
       return res.data;
     },
   });
@@ -94,7 +97,7 @@ const DashHome = () => {
   const moveTask = async (taskId, fromStatus, toStatus) => {
     try {
       // Make a PUT request to update the task status on the server
-      await axios.patch(`http://localhost:5000/tasks/${taskId}`, { status: toStatus });
+      await axios.patch(`https://task-management-server-virid-six.vercel.app/tasks/${taskId}`, { status: toStatus });
 
       // Refetch the 'allTasks' query
       await queryClient.refetchQueries('allTasks');
@@ -112,7 +115,7 @@ const DashHome = () => {
             <button className='btn btn-primary mt-2'>Add new task</button>
           </Link>
         </div>
-        <div className='flex justify-center items-center gap-4'>
+        <div className='flex flex-col lg:flex-row justify-center items-center gap-4'>
           <Column title='To Do' tasks={allTasks.filter((task) => task.status === 'todo' && task.email === user?.email)} status='todo' onTaskMove={moveTask} />
           <Column title='Ongoing' tasks={allTasks.filter((task) => task.status === 'ongoing' && task.email === user?.email)} status='ongoing' onTaskMove={moveTask} />
           <Column title='Completed' tasks={allTasks.filter((task) => task.status === 'completed' && task.email === user?.email)} status='completed' onTaskMove={moveTask} />
