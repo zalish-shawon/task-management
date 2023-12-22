@@ -34,7 +34,7 @@ const Footer = () => {
                             </svg></a></li>
                     </ul>
                     <p class="text-xs mt-8">&copy; 2023<a href='https://readymadeui.com/' target='_blank'
-                        class="hover:underline mx-2">ReadymadeUI</a>All Rights Reserved.</p>
+                        class="hover:underline mx-2">TM</a>All Rights Reserved.</p>
                 </div>
             </footer>
         </div>

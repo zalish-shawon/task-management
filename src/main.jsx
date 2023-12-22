@@ -14,13 +14,12 @@ import AuthProvider from './provider/AuthProvider';
 import Login from './components/Login/Login';
 import Register from './components/Register/Register';
 import {
-  useQuery,
-  useMutation,
-  useQueryClient,
   QueryClient,
   QueryClientProvider,
 } from '@tanstack/react-query'
 import Edit from './components/Edit/Edit';
+import PrivateRoutes from './components/PrivateRoutes';
+import Blog from './components/Blog/Blog';
 
 const queryClient = new QueryClient()
 const router = createBrowserRouter([
@@ -41,16 +40,20 @@ const router = createBrowserRouter([
         path: "/register",
         element: <Register></Register>
       },
+      {
+        path: "/blog",
+        element: <Blog></Blog>
+      }
       
     ],
   },
   {
     path: "/dashboard",
-    element: <Dashboard></Dashboard>,
+    element: <PrivateRoutes><Dashboard></Dashboard></PrivateRoutes>,
     children: [
     {
       path: "home",
-      element: <DashHome></DashHome>
+      element: <PrivateRoutes><DashHome></DashHome></PrivateRoutes>
     },
     {
       path: "addNewTask",
@@ -59,7 +62,7 @@ const router = createBrowserRouter([
     {
       path: "editTask/:id",
       element: <Edit></Edit>,
-      loader: ({params}) => fetch(`http://localhost:5000/${params.id}`)
+      loader: ({params}) => fetch(`http://localhost:5000/tasks/${params.id}`)
     }
 
   ]

@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
 import React, { useContext } from 'react';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
@@ -5,6 +7,7 @@ import { Link } from 'react-router-dom';
 import { DndProvider, useDrag, useDrop } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { AuthContext } from '../../provider/AuthProvider';
+import Swal from 'sweetalert2';
 
 
 const Task = ({ task, onTaskMove }) => {
@@ -13,12 +16,44 @@ const Task = ({ task, onTaskMove }) => {
     item: { id: task._id, status: task.status },
   });
 
+
+  const handleDeleteItem = (_id) => {
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+      }).then((result) => {
+        if (result.isConfirmed) {
+
+            axios.delete(`http://localhost:5000/tasks/${_id}`)
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                if(data.deletedCount > 0) {
+                    Swal.fire(
+                        'Deleted!',
+                        'Your task has been deleted.',
+                        'success'
+                      )
+
+                     
+                }
+            })
+          
+        }
+      })
+    }
+
   return (
-    <div ref={drag} className='bg-slate-200 flex justify-between items-center'>
+    <div ref={drag} className='bg-slate-200 flex justify-between items-center mt-1'>
       <p className='text-lg font-semibold mt-2 p-3'>{task.name}</p>
       <div className='mt-1'>
         <Link to={`/dashboard/editTask/${task._id}`}><button className='px-2 py-1 rounded-lg bg-blue-400'>edit</button></Link>
-        <button className='px-2 py-1 rounded-lg bg-blue-400 ml-2'>Delete</button>
+        <button onClick={()=> handleDeleteItem(task._id)} className='px-2 py-1 rounded-lg bg-blue-400 ml-2'>Delete</button>
       </div>
     </div>
   );
