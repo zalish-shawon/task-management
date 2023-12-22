@@ -14,8 +14,12 @@ const Task = ({ task, onTaskMove }) => {
   });
 
   return (
-    <div ref={drag} className='bg-slate-200'>
-      <p className='text-xl font-semibold mt-2 p-3'>{task.name}</p>
+    <div ref={drag} className='bg-slate-200 flex justify-between items-center'>
+      <p className='text-lg font-semibold mt-2 p-3'>{task.name}</p>
+      <div className='mt-1'>
+        <Link to={`/dashboard/editTask/${task._id}`}><button className='px-2 py-1 rounded-lg bg-blue-400'>edit</button></Link>
+        <button className='px-2 py-1 rounded-lg bg-blue-400 ml-2'>Delete</button>
+      </div>
     </div>
   );
 };
@@ -29,7 +33,9 @@ const Column = ({ title, tasks, status, onTaskMove }) => {
   return (
     <div className='w-1/3 h-[300px] bg-slate-100 mt-5' ref={drop}>
       <div>
-        <h1 className='text-2xl font-semibold p-3 bg-slate-400 text-center'>{title}</h1>
+        <h1 className='text-2xl font-semibold p-3 bg-slate-400 text-center'>{title}
+        </h1>
+        
       </div>
       {tasks.map((task) => (
         <Task key={task._id} task={task} onTaskMove={onTaskMove} />
@@ -53,7 +59,7 @@ const DashHome = () => {
   const moveTask = async (taskId, fromStatus, toStatus) => {
     try {
       // Make a PUT request to update the task status on the server
-      await axios.put(`http://localhost:5000/tasks/${taskId}`, { status: toStatus });
+      await axios.patch(`http://localhost:5000/tasks/${taskId}`, { status: toStatus });
 
       // Refetch the 'allTasks' query
       await queryClient.refetchQueries('allTasks');

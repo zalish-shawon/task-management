@@ -20,6 +20,7 @@ import {
   QueryClient,
   QueryClientProvider,
 } from '@tanstack/react-query'
+import Edit from './components/Edit/Edit';
 
 const queryClient = new QueryClient()
 const router = createBrowserRouter([
@@ -39,7 +40,8 @@ const router = createBrowserRouter([
       {
         path: "/register",
         element: <Register></Register>
-      }
+      },
+      
     ],
   },
   {
@@ -53,7 +55,13 @@ const router = createBrowserRouter([
     {
       path: "addNewTask",
       element: <CreateTask></CreateTask>
+    },
+    {
+      path: "editTask/:id",
+      element: <Edit></Edit>,
+      loader: ({params}) => fetch(`http://localhost:5000/${params.id}`)
     }
+
   ]
     
   }
