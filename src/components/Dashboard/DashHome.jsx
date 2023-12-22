@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { DndProvider, useDrag, useDrop } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
+import { AuthContext } from '../../provider/AuthProvider';
+
 
 const Task = ({ task, onTaskMove }) => {
   const [, drag] = useDrag({
@@ -37,6 +39,7 @@ const Column = ({ title, tasks, status, onTaskMove }) => {
 };
 
 const DashHome = () => {
+  const {user} = useContext(AuthContext);
   const queryClient = useQueryClient();
 
   const { data: allTasks = [], refetch } = useQuery({
@@ -57,6 +60,7 @@ const DashHome = () => {
     } catch (error) {
       console.error('Error updating task status:', error);
     }
+    refetch();
   };
 
   return (
@@ -68,9 +72,9 @@ const DashHome = () => {
           </Link>
         </div>
         <div className='flex justify-center items-center gap-4'>
-          <Column title='To Do' tasks={allTasks.filter((task) => task.status === 'todo')} status='todo' onTaskMove={moveTask} />
-          <Column title='Ongoing' tasks={allTasks.filter((task) => task.status === 'ongoing')} status='ongoing' onTaskMove={moveTask} />
-          <Column title='Completed' tasks={allTasks.filter((task) => task.status === 'completed')} status='completed' onTaskMove={moveTask} />
+          <Column title='To Do' tasks={allTasks.filter((task) => task.status === 'todo' && task.email === user?.email)} status='todo' onTaskMove={moveTask} />
+          <Column title='Ongoing' tasks={allTasks.filter((task) => task.status === 'ongoing' && task.email === user?.email)} status='ongoing' onTaskMove={moveTask} />
+          <Column title='Completed' tasks={allTasks.filter((task) => task.status === 'completed' && task.email === user?.email)} status='completed' onTaskMove={moveTask} />
         </div>
       </div>
     </DndProvider>
